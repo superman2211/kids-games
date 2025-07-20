@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["../src/data.ts", "../src/index.ts"],
+  "sourcesContent": ["export function test() {\n    return 10;\n}", "import { test } from \"./data\";\n\nconst a = 1;\nconst b = 2;\nconst c = a + b + test();\n\nconsole.log(\"c = \" + c);"],
+  "mappings": "mBAAM,SAAUA,GAAI,CAChB,MAAO,GACX,CCAA,IAAMC,EAAI,EACJC,EAAI,EACJC,EAAIF,EAAIC,EAAIE,EAAI,EAEtB,QAAQ,IAAI,OAASD,CAAC",
+  "names": ["test", "a", "b", "c", "test"]
+}
