@@ -1,2 +1,2 @@
-"use strict";(()=>{function t(){return 10}var o=1,c=2,n=o+c+t();console.log("c = "+n);})();
+"use strict";(()=>{var t=document.getElementById("c"),i=t.getContext("2d");function d(){let s=window.innerWidth,c=window.innerHeight;t.width=s*devicePixelRatio,t.height=c*devicePixelRatio,t.style.width=`${s}px`,t.style.height=`${c}px`}window.addEventListener("resize",d);d();var e={x:100,y:100},n={x:150,y:250},o={x:10,y:10};function x(){i.clearRect(0,0,t.width,t.height),i.fillStyle="red",i.fillRect(e.x,e.y,n.x,n.y),i.strokeStyle="green",i.lineWidth=10,i.strokeRect(e.x,e.y,n.x,n.y),e.x+=o.x,e.y+=o.y,(e.x<0||e.x+n.x>t.width)&&(o.x=-o.x),(e.y<0||e.y+n.y>t.height)&&(o.y=-o.y),requestAnimationFrame(x)}requestAnimationFrame(x);})();
 //# sourceMappingURL=bundle.js.map
