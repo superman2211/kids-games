@@ -16,30 +16,77 @@ window.addEventListener("resize", resizeCanvas);
 
 resizeCanvas();
 
-const position = { x: 100, y: 100 };
-const size = { x: 150, y: 250 };
-const speed = { x: 10, y: 10 };
+const gameSize = { x: 1000, y: 1000 };
+const size = { x: 120, y: 120 };
+const border = 70;
+const distance = 200;
+const lineWidth = 10;
+
+const rectangles = [
+    { color: "red" },
+    { color: "blue" },
+    { color: "yellow" },
+    { color: "green" },
+];
+
+const target = { color: "yellow" };
 
 function update() {
+    // 1, 0, 0
+    // 0, 1, 0
+    // 0, 0, 1
+    context.setTransform(1, 0, 0, 1, 0, 0);
     context.clearRect(0, 0, canvas.width, canvas.height);
 
-    context.fillStyle = "red";
-    context.fillRect(position.x, position.y, size.x, size.y);
+    const scaleX = canvas.width / gameSize.x;
+    const scaleY = canvas.height / gameSize.y;
+    const scale = Math.min(scaleX, scaleY);
 
-    context.strokeStyle = "green";
-    context.lineWidth = 10;
-    context.strokeRect(position.x, position.y, size.x, size.y);
+    const tx = (canvas.width - gameSize.x * scale) / 2;
+    const ty = (canvas.height - gameSize.y * scale) / 2;
 
-    position.x += speed.x;
-    position.y += speed.y;
+    context.setTransform(scale, 0, 0, scale, tx, ty);
 
-    if (position.x < 0 || position.x + size.x > canvas.width) {
-        speed.x = -speed.x;
+    let position = {
+        x: (gameSize.x - rectangles.length * size.x - (rectangles.length - 1) * border) / 2,
+        y: (gameSize.y - size.y - distance - size.y) / 2,
+    };
+
+    for (const rectangle of rectangles) {
+        context.strokeStyle = rectangle.color;
+        context.lineWidth = lineWidth;
+
+        context.strokeRect(
+            position.x,
+            position.y,
+            size.x,
+            size.y
+        );
+
+        position.x += size.x + border;
     }
 
-    if (position.y < 0 || position.y + size.y > canvas.height) {
-        speed.y = -speed.y;
+    let targetPosition = {
+        x: (gameSize.x - size.x) / 2, 
+        y: position.y + size.y + distance,
     }
+
+    context.fillStyle = target.color;
+    context.fillRect(
+        targetPosition.x,
+        targetPosition.y,
+        size.x,
+        size.y
+    );
+
+    context.strokeStyle = target.color;
+    context.lineWidth = lineWidth;
+    context.strokeRect(
+        targetPosition.x,
+        targetPosition.y,
+        size.x,
+        size.y
+    );
 
     requestAnimationFrame(update);
 }
